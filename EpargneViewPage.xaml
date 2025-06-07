@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"  
+            xmlns:views="clr-namespace:FinanceApp.Views"  
+            xmlns:controls="clr-namespace:FinanceApp.Models"  
+            x:DataType="viewModels:EpargneViewModel"  
+            x:Class="FinanceApp.Views.EpargneViewPage"  
+            Title="Liste des Epargnes">  
+   <ContentPage.BindingContext>  
+       <viewModels:EpargneViewModel/>  
+   </ContentPage.BindingContext>  
+   <VerticalStackLayout>  
+       <Grid>  
+           <ScrollView>  
+               <VerticalStackLayout Spacing="10">  
+                   <CollectionView ItemsSource="{Binding AllEpargne}" >  
+                       <CollectionView.ItemTemplate>  
+                           <DataTemplate x:DataType="viewModels:EpargneViewModel">
+                                <controls:EpargneModel Titre="{Binding Titre}"  CurrentAmount="{Binding CurrentAmount}"  Progression="{Binding Progression}"  Pourcentage="{Binding Pourcentage}"  
+                                                       Description="{Binding Description}"  
+                                                       Montant="{Binding Montant}">
+                                    <controls:EpargneModel.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="EpargneItemTapped"/>
+                                    </controls:EpargneModel.GestureRecognizers>
+                                </controls:EpargneModel>
+                            </DataTemplate>  
+                       </CollectionView.ItemTemplate>  
+                   </CollectionView>
+                    <ImageButton Command="{Binding ClickAddNewEpargneButtonCommand}"  
+                                Source="add.png"  
+                                WidthRequest="60"  
+                                HeightRequest="50"  
+                                HorizontalOptions="End"  
+                                VerticalOptions="End"/>  
+               </VerticalStackLayout>  
+           </ScrollView>  
+       </Grid>  
+   </VerticalStackLayout>  
+</ContentPage>

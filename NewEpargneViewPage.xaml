@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"  
+            x:Class="FinanceApp.Views.NewEpargneViewPage"
+            Title="Ajout d'un nouvel epargne">
+
+    <ContentPage.BindingContext>
+        <viewModels:NewEpargneModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout Spacing="20" Padding="20">
+
+        <Label Text="Definissez votre Objectif Financier" HorizontalOptions="Center" FontSize="20" />
+
+        <Border StrokeShape="RoundRectangle 10 " Padding="10">
+
+            <Grid ColumnSpacing="10" Padding="15" RowSpacing="15">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <!-- Placement des elements -->
+
+                <Label Text="Titre" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
+                <Entry MaxLength="50" Text="{Binding TitreText}" Placeholder="Acheter Une Voiture" Grid.Row="0" Grid.Column="1"/>
+
+                <Label Text="Montant : " Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center"/>
+                <Editor Text="{Binding AmountText}" MaxLength="9"  Keyboard="Numeric" Placeholder="Saisir le montant à ateindre" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Text="Pourcentage : " Grid.Row="3" Grid.Column="0" VerticalTextAlignment="Center"/>
+                <Entry Text="{Binding Taux}" MaxLength="3" Keyboard="Numeric" Placeholder="Saisir le porcentage à prelever pour votre objectif" Grid.Row="3" Grid.Column="1"/>
+
+                <Label Text="Description : " Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" />
+                <Entry Text="{Binding DescText}" x:Name="descriptionAjoutObjectif" Placeholder="Description de l'objectif" Grid.Row="1" Grid.Column="1"/>
+
+                <Label Text="Date : " Grid.Row="4" Grid.Column="0" VerticalTextAlignment="Center"/>
+                <DatePicker Date="{Binding DateSetter}" Format="dd-MM-yyyy" x:Name="DateHandler" Grid.Row="4" Grid.Column="1"/>
+
+                <Button Command="{Binding OnclickCancelButtonCommand}" BackgroundColor="Black" Text="Annuler" Grid.Row="5" Grid.Column="0"  />
+                <Button Command="{Binding ClickSaveButtonCommand}" Text="Enregistrer" Grid.Row="5" Grid.Column="1"   />
+
+            </Grid>
+        </Border>
+
+    </VerticalStackLayout>
+</ContentPage>

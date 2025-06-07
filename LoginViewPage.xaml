@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:views="clr-namespace:FinanceApp.Views"
+			 xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"
+			 x:DataType="viewModels:LoginViewModel"
+             x:Class="FinanceApp.Views.LoginViewPage"
+             Shell.NavBarIsVisible="False"
+             Title="Connexion">
+             
+	<ContentPage.BindingContext>
+		<viewModels:LoginViewModel />
+	</ContentPage.BindingContext>
+
+	<ScrollView >
+
+        <VerticalStackLayout NavigationPage.BackButtonTitle="back" BackgroundColor="#F0F8FF"	Padding="10"	>
+            <Grid Margin="0,50,0,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+
+				</Grid.RowDefinitions>
+
+				<Border Grid.Row="1"
+						Stroke="#333333"
+						StrokeShape="RoundRectangle 20"
+						StrokeThickness="0" BackgroundColor="WhiteSmoke"
+						WidthRequest="150"
+						HeightRequest="150"
+                     >
+					<VerticalStackLayout >
+						<Image Source="connexion.png" Aspect="Fill"
+							   HeightRequest="110"
+							   WidthRequest="120"/>
+						<Label FontAttributes="Bold" Text="LOGIN"
+							   FontSize="Title"
+                               TextColor="#333333"
+							   HorizontalOptions="Center"
+							   VerticalOptions="Center"/>
+					</VerticalStackLayout>
+
+				</Border>
+
+				<Border Grid.Row="2"
+						Margin="0,20,0,0"
+						Stroke="#333333"
+						StrokeShape="RoundRectangle 20"
+						StrokeThickness="0" BackgroundColor="WhiteSmoke">
+
+					<HorizontalStackLayout Padding="5" >
+						<Image Source="registericon.png" Aspect="Fill" HeightRequest="25" HorizontalOptions="Start"/>
+						<Entry Keyboard="Email" Placeholder="Email or Username"
+							   Text="{Binding Email}"
+							   FontSize="20"
+                               TextColor="#333333"
+							   HeightRequest="60" WidthRequest="330"/>
+
+					</HorizontalStackLayout>
+				</Border>
+
+
+
+				<Border Grid.Row="3"
+						Margin="0,20,0,0"
+						Stroke="#333333"
+						StrokeShape="RoundRectangle 20"
+						StrokeThickness="0" BackgroundColor="WhiteSmoke">
+
+					<HorizontalStackLayout Padding="5" >
+						<Image Source="padlock.png" Aspect="Fill" HeightRequest="25" HorizontalOptions="Start"/>
+						<Entry Keyboard="Text" Placeholder="Password"
+							   Text="{Binding Password}"
+							   IsPassword="{Binding IsPasswordHidden}"
+                               TextColor="#333333"
+							   FontSize="20"
+							   HeightRequest="60" WidthRequest="290"/>
+						<ImageButton WidthRequest="50" HeightRequest="50"
+                                     Source="{Binding PasswordIcon}"
+									 Command="{Binding IsPasswordVisibleCommand}" />
+					</HorizontalStackLayout>
+				</Border>
+
+
+				<HorizontalStackLayout Grid.Row="4">
+					<CheckBox IsChecked="{Binding RememberMe}" Margin="0"/>
+                    <Label TextColor="#333333" Text="se souvenir de moi" FontSize="Medium" FontAttributes="Bold" Margin="0,10,15,0"/>
+					<Button  Text="Mot de pass oublié ?" Command="{Binding ResetPasswordCommand}" HorizontalOptions="End"
+							 BackgroundColor="Transparent" TextColor="Blue" FontAttributes="Bold"
+							 FontSize="Medium" />
+				</HorizontalStackLayout>
+
+
+				<Button Grid.Row="5" CornerRadius="20" Margin="0,20,0,0" Text="CONNEXION" TextColor="White"
+						Command="{Binding LoginCommand}" BackgroundColor="DarkBlue"/>
+
+				<HorizontalStackLayout Grid.Row="6" Margin="10">
+					<Label Text="vous n'avez pas de compte?" FontSize="Medium" FontAttributes="Bold" Margin="0,10"/>
+					<Button Text="Creer un compte" BackgroundColor="Transparent" TextColor="Blue" FontSize="Medium"
+							Command="{Binding CreateNewAccountCommand}"/>
+				</HorizontalStackLayout>
+
+			</Grid>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

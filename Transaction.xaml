@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FinanceApp.Models"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             x:Class="FinanceApp.Transaction"
+             Title="Transaction"
+             BackgroundColor="#F0F8FF">
+    <ScrollView>
+    <Grid>
+    <VerticalStackLayout Spacing="10" Padding="10">
+                <Border StrokeShape="RoundRectangle 12" Stroke="#7D4FFE" Padding="15" BackgroundColor="White" >
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto">
+                        <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="8" Margin="10">
+                            <StackLayout Orientation="Horizontal" Spacing="8">
+                                <BoxView Color="Coral" WidthRequest="18" HeightRequest="18" CornerRadius="4" />
+                                <Label Text="Dépense" FontSize="15" TextColor="#333333" VerticalOptions="Center" x:Name="DepenseLabel" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="8">
+                                <BoxView Color="DarkCyan" WidthRequest="18" HeightRequest="18" CornerRadius="4" />
+                                <Label Text="Revenu" FontSize="15" TextColor="#333333" VerticalOptions="Center" x:Name="RevenuLabel" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <skia:SKCanvasView Grid.Row="1" Grid.Column="1" x:Name="skCanvasViewHandler"
+                           BackgroundColor="White"
+                           WidthRequest="200"
+                           HeightRequest="200"
+                           PaintSurface="OnSurfacePaint"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center"
+                           Margin="0,0,10,0"/>
+
+                    </Grid>
+                </Border>
+                <CollectionView ItemsSource="{Binding Alltransactions}" x:Name="collectionView">
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <controls:ActionModele x:Name="SetActionModele" Title="{Binding Category}" Description="{Binding Description}" ImageIcon="{Binding Image}" SoldeColor="{Binding SoldeColor}" Somme="{Binding Budget}" ImageBackColor="{Binding BackColor}">
+                            <controls:ActionModele.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTappedTransaction"/>
+                                    </controls:ActionModele.GestureRecognizers>
+                        </controls:ActionModele>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+            <ImageButton Source="add_button.png" BackgroundColor="White" HorizontalOptions="End" VerticalOptions="End" x:Name="ButtonAdd" Margin="0,0,20,20" BorderColor="#333333"  CornerRadius="30" WidthRequest="60" HeightRequest="60" Clicked="OnClickedAddButton" />
+    </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            x:Class="FinanceApp.Views.ProfilSetterViewPage"  
+            xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"  
+            Title="Mettre a jour son Profil">  
+   <ContentPage.BindingContext>  
+       <viewModels:ProfilSetterViewModel />  
+   </ContentPage.BindingContext> 
+       <ScrollView>
+
+            <VerticalStackLayout Padding="10" Spacing="10">
+
+                <Frame CornerRadius="15" HasShadow="True" BorderColor="#cccccc" Padding="10" BackgroundColor="{DynamicResource personalcolor1}">
+                    <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 360">
+                            <ImageButton Source="{Binding ImageButtonSource}"   Command="{Binding LoadProfilImageCommand}"    
+                                Aspect="Center"   
+                                x:Name="ProfilSetter"
+                                BackgroundColor="White"
+                            />
+                       </Border>
+                        <Entry x:Name="UserName" FontSize="24" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
+                        <Entry x:Name="UserMail" FontSize="16" TextColor="Gray" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Padding="10" BackgroundColor="White" Stroke="{DynamicResource personalcolor1}" x:Name="FormeBorder">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Mot de pass" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <HorizontalStackLayout Spacing="8">
+                            <Image Aspect="AspectFit" Source="padlock.png" WidthRequest="30" HeightRequest="30" />
+                            <Entry Placeholder="nouveau mot pass" x:Name="PassWordText" IsPassword="{Binding IsPasswordHidden}" TextColor="#333333" />
+                            <ImageButton Command="{Binding IsPasswordVisibleCommand}" Aspect="AspectFit" Source="{Binding PassWordVisibility}" WidthRequest="30" HeightRequest="30" />
+                        </HorizontalStackLayout>
+
+                        <Label Text="confirmation du mot de passs" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <HorizontalStackLayout>
+                            <Entry Placeholder="confirmer le mot de pass" IsPassword="{Binding IsPasswordHidden}" x:Name="ConfirmePassWordText" MaxLength="150" TextColor="#333333" />
+                            <ImageButton Command="{Binding IsPasswordVisibleCommand}" Aspect="AspectFit" Source="{Binding PassWordVisibility}" WidthRequest="30" HeightRequest="30" />
+                        </HorizontalStackLayout>
+
+                        <Label Text="Telephone" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <Entry Placeholder="+33 6 00 00 00 0" x:Name="UserPhone" Keyboard="Telephone" MaxLength="25" TextColor="#333333" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Enregistrer" Clicked="SaveProfil" BorderWidth="2" FontSize="18" CornerRadius="10" x:Name="ButtonAdd" WidthRequest="200" TextColor="#333333" FontAttributes="Bold"
+                        BackgroundColor="{DynamicResource personalcolor1}" />
+            </VerticalStackLayout>
+        </ScrollView>  
+</ContentPage>

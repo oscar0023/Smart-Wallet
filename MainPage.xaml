@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FinanceApp.Models"
+             x:Class="FinanceApp.MainPage"
+             x:Name="ContentPageHandler"
+             Shell.TabBarIsVisible="True"
+             Title="Bonjour M. USER FULL NAME !"
+             BackgroundColor="#F0F8FF">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <Frame CornerRadius="10" Padding="15" BackgroundColor="White" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="SmartWallet" 
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#007BFF"
+                           HorizontalOptions="Start" />
+                    <ImageButton Source="applogo.png" HeightRequest="80" Aspect="AspectFit"
+                           CornerRadius="60"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Border StrokeShape="RoundRectangle 10" Padding="15" BackgroundColor="White">
+                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="Dépense" FontSize="18" FontAttributes="Bold" TextColor="Red" HorizontalOptions="Center"/>
+                        <Label x:Name="AfficheDepense" Text="0" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Solde" FontSize="18" FontAttributes="Bold" x:Name="SoldeLabel" TextColor="#007BFF" HorizontalOptions="Center"/>
+                        <Label x:Name="AfficheSolde" Text="0" FontSize="25" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                        <Image Source="barre.jpg" HeightRequest="50" Aspect="AspectFit" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="Revenu" FontSize="18" FontAttributes="Bold" TextColor="DarkOliveGreen" HorizontalOptions="Center"/>
+                        <Label x:Name="AfficheRevenu" Text="0" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <Frame CornerRadius="10" Padding="15" BackgroundColor="White" HasShadow="True">
+                <Grid RowSpacing="10" ColumnSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <controls:ActiviteModele Title="Transaction" Icon="trans.jpg" Grid.Row="0" Grid.Column="0">
+                        <controls:ActiviteModele.GestureRecognizers>
+                            <TapGestureRecognizer  Tapped="GoToTransactionPage"/>
+                        </controls:ActiviteModele.GestureRecognizers>
+                    </controls:ActiviteModele>
+                    <controls:ActiviteModele Title="Revenu" Icon="sell.png" Grid.Row="0" Grid.Column="1" />
+                    <controls:ActiviteModele Title="Dépenses" Icon="shopping.png" Grid.Row="1" Grid.Column="0" />
+                    <controls:ActiviteModele Title="Dettes" Icon="savings.png" Grid.Row="1" Grid.Column="1" />
+                    <controls:ActiviteModele Title="DashBoard" Icon="dash.jpg" Grid.Row="2" Grid.Column="0" >
+                        <controls:ActiviteModele.GestureRecognizers>
+                            <TapGestureRecognizer  Tapped="GoToDashBorards"/>
+                        </controls:ActiviteModele.GestureRecognizers>
+                    </controls:ActiviteModele>
+                    <controls:ActiviteModele Title="Epargnes" Icon="epag.jpg" Grid.Row="2" Grid.Column="1" >
+                        <controls:ActiviteModele.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToAddEpargne"/>
+                        </controls:ActiviteModele.GestureRecognizers>
+                    </controls:ActiviteModele>
+                </Grid>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+    

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinanceApp.Views.AppInfosViewPage"
+             Shell.TabBarIsVisible="True"
+             Title="À propos">
+
+    <VerticalStackLayout BackgroundColor="#F8F8F8" Padding="20" Spacing="20">
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Padding="15" Stroke="#DDDDDD" Margin="0,30,0,10"
+                HorizontalOptions="Fill">
+
+            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                <ImageButton Source="applogo.png" WidthRequest="60" HeightRequest="60" Aspect="AspectFit" BackgroundColor="#EFEFEF"
+                       CornerRadius="12" />
+
+                <VerticalStackLayout>
+                    <Label Text="SmartWallet" FontSize="22" FontAttributes="Bold" TextColor="#333333" />
+                    <Label Text="Version 1.1" FontSize="14" TextColor="#666666" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Border>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Bienvenue sur SmartWallet !" FontSize="20" FontAttributes="Bold" TextColor="#222222" />
+
+                <Label Text="SmartWallet est une application de gestion budgétaire personnelle conçue pour vous aider à mieux suivre vos finances au quotidien. Elle vous permet de visualiser et organiser vos dépenses, revenus, planifications et épargnes afin d’atteindre plus facilement vos objectifs financiers."
+                       FontSize="16" TextColor="#444444" LineBreakMode="WordWrap"
+                       HorizontalTextAlignment="Start" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>

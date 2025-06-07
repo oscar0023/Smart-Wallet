@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+           xmlns:chart="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"  
+           xmlns:vm="clr-namespace:FinanceApp.ViewModels"  
+           x:Class="FinanceApp.Views.StatistiquesViewPage"  
+           x:DataType="vm:StatistiquesViewModel"  
+           Title="StatistiquesViewPage"
+             BackgroundColor="Ivory">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+
+
+            <Border StrokeThickness="1" StrokeShape="RoundRectangle 10" 
+                    >
+                <HorizontalStackLayout>
+                    <Label Text="Mois Sélectionné"  Margin="0,0,40,10"
+                           TextColor="Blue" FontAttributes="Bold" HorizontalOptions="Center"
+                           VerticalOptions="Center" FontSize="Large" />
+                    <DatePicker Date="{Binding SelectedMonth}" Format="MMM yyyy" FontSize="Large" HorizontalOptions="End"
+                                VerticalOptions="Center" TextColor="Brown"/>
+                </HorizontalStackLayout>
+
+            </Border>
+
+
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" Margin="0,20,0,10">
+                <Border StrokeThickness="1" StrokeShape="RoundRectangle 10"  Grid.Row="0" 
+                        HeightRequest="80" WidthRequest="160"
+                        BackgroundColor="Transparent"
+                        Grid.Column="0" Style="{StaticResource StatisticFrame}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="Revenu Total" Style="{StaticResource StatisticLabel}" TextColor="Green" FontAttributes="Bold" FontSize="Body" Margin="0,0,0,10" />
+                        <Label Text="{Binding TotalRevenu, StringFormat='{}{0:N2} MAD'}" Style="{StaticResource StatisticValue}" TextColor="blue" FontSize="Body" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border  StrokeThickness="1" StrokeShape="RoundRectangle 10"  Margin="0,0,10,0"
+                         HeightRequest="80" WidthRequest="160"
+                         Grid.Row="0" Grid.Column="1" Style="{StaticResource StatisticFrame}">
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center">
+                        <Label Text="Dépense Totale" Style="{StaticResource StatisticLabel}" TextColor="Brown" FontSize="Body" FontAttributes="Bold"  Margin="0,0,0,10"/>
+                        <Label Text="{Binding TotalDepense, StringFormat='{}{0:N2} MAD'}" Style="{StaticResource StatisticValue}" TextColor="Red" FontSize="Body" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeThickness="1" StrokeShape="RoundRectangle 10"  
+                        Grid.Row="1" Grid.ColumnSpan="2" 
+                        Style="{StaticResource StatisticFrame}"
+                        HeightRequest="90" Margin="10"
+                        >
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center">
+                        <Label Text="Solde du Mois" Style="{StaticResource StatisticLabel}" TextColor="Blue" FontSize="Large" FontAttributes="Bold"/>
+                        <Label Text="{Binding Solde, StringFormat='{}{0:N2} MAD'}" Style="{StaticResource StatisticValue}" TextColor="ForestGreen" FontSize="Title" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Label Text="Évolution du Solde" FontSize="Subtitle" Margin="0,20,0,10" />
+            <chart:ChartView Chart="{Binding EvolutionChart}" HeightRequest="200">
+                <!-- Removed EmptyContent as it is not a valid property for ChartView -->
+            </chart:ChartView>
+
+            <CollectionView ItemsSource="{Binding RecentTransactions}" BackgroundColor="DeepSkyBlue">
+
+                <CollectionView.Header>
+                    <Label Text="Toutes Les Transactions" FontSize="Title" HorizontalOptions="Center" />
+                </CollectionView.Header>
+                <CollectionView.EmptyView>
+                    <Label Text="Aucune transaction récente pour le mois sélectionné."
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:TransactionViewModel">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" Padding="5">
+
+                            <Label Text="{Binding Category}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Description}" FontSize="Micro" TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" Grid.Column="1"/>
+                            <Label Grid.Column="2" Text="{Binding Budget}" FontAttributes="Bold" VerticalOptions="Center" TextColor="{Binding SoldeColor}"/>
+
+                        </Grid>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <Label Text="Fin des Transactions " FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Red" />
+                </CollectionView.Footer>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>            

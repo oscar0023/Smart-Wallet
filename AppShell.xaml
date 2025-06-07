@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FinanceApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:FinanceApp.Views"
+    xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"
+    xmlns:Models="clr-namespace:FinanceApp.Models"
+    xmlns:local="clr-namespace:FinanceApp"
+    Shell.FlyoutBehavior="Flyout"
+    x:DataType="local:AppShell"
+    Shell.BackgroundColor="#F0F8FF"
+    >
+
+    <TabBar Route="Maintabs">
+
+        <ShellContent Title="Home"
+          Icon="home.png"
+          ContentTemplate="{DataTemplate local:MainPage}" 
+        />
+        <ShellContent Title="profils"
+            Icon="profil_icon.png"
+            ContentTemplate="{DataTemplate views:ProfilSetterViewPage}" 
+        />
+
+        <ShellContent Icon="add.png"
+            ContentTemplate="{DataTemplate local:AddPage}" 
+            Route="AddPage"
+        />
+        <ShellContent Title="Paramettre"
+              Icon="settings.png"
+              ContentTemplate="{DataTemplate views:SettingViewPage}" 
+        />
+    </TabBar>
+
+    <ShellContent
+       FlyoutItemIsVisible="False"
+       ContentTemplate="{DataTemplate views:LoginViewPage}"
+       Route="LoginViewPage" 
+    />
+
+    <ShellContent
+      ContentTemplate="{DataTemplate local:MainPage}"
+      FlyoutItemIsVisible="False"
+      Route="MainPage" 
+    />
+
+    <ShellContent 
+        Title="Paramettre"
+        Icon="settings.png"      
+        ContentTemplate="{DataTemplate views:SettingViewPage}" 
+        Route="SettingViewPage"
+    />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:RegisterViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="RegisterViewPage" 
+    />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ForgotPasswordViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="ForgotPasswordViewPage" 
+    />
+
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:EpargneViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="EpargneViewPage" 
+    />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:NewEpargneViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="NewEpargneViewPage" 
+    />
+
+
+  
+    <ShellContent
+        ContentTemplate="{DataTemplate views:StatistiquesViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="StatistiquesViewPage" 
+    />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:DashboardViewPage}"
+        FlyoutItemIsVisible="False"
+        Route="DashboardViewPage"/>
+
+
+</Shell>

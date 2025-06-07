@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinanceApp.AddPage"
+             BackgroundColor="#F0F8FF"
+             Title="Ajouter une transaction">
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" RadioButtonGroup.GroupName="TransactionType">
+                    <Border x:Name="RevenuBorder"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        >
+                        <RadioButton x:Name="RBrevenu"
+                                 GroupName="TransactionType"
+                                 Content="Revenu"
+                                 Value="choix1"
+                                 FontAttributes="Bold"
+                                 FontSize="18"
+                                 TextColor="#7D4FFE"
+                                 CheckedChanged="OnChangedTransactionType"
+                                 IsChecked="True" />
+                    </Border>
+
+                    <Border x:Name="DepenseBorder"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        >
+                        <RadioButton x:Name="RBdepense"
+                                 Content="Dépense"
+                                 Value="choix2"
+                                 GroupName="TransactionType"
+                                 FontAttributes="Bold"
+                                 FontSize="18"
+                                 CheckedChanged="OnChangedTransactionType"
+                                 TextColor="#7D4FFE" />
+                    </Border>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Padding="10" BackgroundColor="White" Stroke="#7D4FFE" x:Name="FormeBorder">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Catégorie" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <HorizontalStackLayout Spacing="10">
+                            <Entry Placeholder="Salaire" x:Name="CategoryLabel" TextColor="#333333" IsEnabled="False"   />
+                            <ImageButton x:Name="CategoryChsButton" Aspect="AspectFit" Source="arrow_drop_down.png" Clicked="OnClickedCategoryAddButton" WidthRequest="30" HeightRequest="30" />
+                        </HorizontalStackLayout>
+
+                        <Label Text="Description" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <Entry Placeholder="Description" x:Name="DescLabel" MaxLength="150" TextColor="#333333" />
+
+                        <Label Text="Montant" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <Entry Placeholder="Montant" x:Name="SoldeLabel" Keyboard="Numeric" MaxLength="6" TextColor="#333333" />
+
+                        <Label Text="Taux d'Epargne" TextColor="#333333" FontSize="18" FontAttributes="Bold" x:Name="LabelTauxEpargne" />
+                        <Entry Placeholder="0 %" x:Name=" TauxEpargne" Keyboard="Numeric" MaxLength="2" TextColor="#333333"  />
+
+                        <Label Text="Date" TextColor="#333333" FontSize="18" FontAttributes="Bold" />
+                        <HorizontalStackLayout Spacing="10">
+                            <DatePicker x:Name="DateSetter" TextColor="#333333" Format="dd-MM-yyyy"/>
+                            <Image Source="calendar_month.png" WidthRequest="30" HeightRequest="30" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Ajouter"
+                    CornerRadius="10"
+                    FontSize="18"
+                    x:Name="ButtonAdd"
+                    WidthRequest="200"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Clicked="OnClickAddButton"
+                    BackgroundColor="#7D4FFE" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="FinanceApp.Views.DashboardViewPage"
+             x:DataType="viewModels:DashboardViewModel"
+             Title="{Binding Title}"
+             >
+
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DashboardCard" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="1" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"/>
+                <Setter Property="Shadow">
+                    <Shadow Brush="{AppThemeBinding Light=Black, Dark=White}" Offset="5,5" Radius="10" Opacity="0.2"/>
+                </Setter>
+            </Style>
+            <Style x:Key="DashboardCardTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="0,0,0,5"/>
+            </Style>
+            <Style x:Key="DashboardStatLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"/>
+            </Style>
+            <Style x:Key="DashboardStatValue" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Color x:Key="PrimaryColor">MediumTurquoise</Color>
+            <Color x:Key="IncomeColor">ForestGreen</Color>
+            <Color x:Key="ExpenseColor">IndianRed</Color>
+
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="10" BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Black}}">
+      
+            <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource PrimaryColor}" Margin="20"/>
+
+            <!-- Header Section -->
+            <Grid ColumnDefinitions="Auto,*,Auto" Padding="10,5" VerticalOptions="Center">
+                <Frame Grid.Column="0" CornerRadius="25" HeightRequest="50" WidthRequest="50" Padding="0" Margin="0,0,10,0" IsClippedToBounds="True">
+                    <Image Source="{Binding UserImage}" Aspect="AspectFill" HeightRequest="50" WidthRequest="50"/>
+                </Frame>
+                <Label Grid.Column="1" Text="{Binding UserName, StringFormat='Bonjour, {0}!'}" FontSize="Large" FontAttributes="Bold" VerticalOptions="Center"/>
+                <ImageButton Grid.Column="2" Source="settings.png" HeightRequest="30" WidthRequest="30" VerticalOptions="Center" Clicked="GoToSettings" />
+            </Grid>
+
+            <!-- Balance and Date Section -->
+            <Border Style="{StaticResource DashboardCard}">
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="5">
+                    <Label Grid.Row="0" Grid.Column="0" Text="Solde Total" Style="{StaticResource DashboardStatLabel}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding Solde}" FontSize="Large" FontAttributes="Bold" TextColor="{StaticResource PrimaryColor}"/>
+                    <DatePicker Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" VerticalOptions="Center"
+                                 Date="{Binding SelectedDate}" Format="MMM yyyy  "
+								/>
+
+                </Grid>
+            </Border>
+
+            <!-- Stats Summary (Income/Expense This Month) -->
+            <Border Style="{StaticResource DashboardCard}">
+                <Grid ColumnDefinitions="*, *" Padding="5">
+                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                        <Label Text="Revenu (Mois)" Style="{StaticResource DashboardStatLabel}"/>
+                        <Label Text="{Binding TotalRevenuMonth}" Style="{StaticResource DashboardStatValue}" TextColor="{StaticResource IncomeColor}"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2">
+                        <Label Text="Dépense (Mois)" Style="{StaticResource DashboardStatLabel}"/>
+                        <Label Text="{Binding TotalDepenseMonth}" Style="{StaticResource DashboardStatValue}" TextColor="{StaticResource ExpenseColor}"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+
+
+
+            <!-- Expense Breakdown Chart -->
+            <Border Style="{StaticResource DashboardCard}">
+                <VerticalStackLayout>
+                    <Label Text="Répartition des Dépenses (Mois)" Style="{StaticResource DashboardCardTitle}"/>
+                    <microcharts:ChartView Chart="{Binding ChartDataIncomeExpense}" HeightRequest="150" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource DashboardCard}" >
+                <VerticalStackLayout>
+                    <Label Text="Répartition des revenus (Mois)" Style="{StaticResource DashboardCardTitle}"/>
+                    <microcharts:ChartView Chart="{Binding ChartDataIncomeRevenu}" HeightRequest="150" />
+                </VerticalStackLayout>
+            </Border>
+
+
+
+
+
+            <!-- Recent Transactions -->
+            <Border Style="{StaticResource DashboardCard}">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0" Text="Transactions Récentes" Style="{StaticResource DashboardCardTitle}"/>
+                        <Button Grid.Column="1" Text="Voir tout" FontSize="Small" HeightRequest="35" Clicked="GoToAllTransactions"/>
+                    </Grid>
+
+                    <CollectionView ItemsSource="{Binding RecentTransactions}" HeightRequest="250">
+                        <CollectionView.EmptyView>
+                            <Label Text="Aucune transaction ce mois-ci." HorizontalOptions="Center" VerticalOptions="Center" Margin="20"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:TransactionViewModel">
+
+                                <Grid ColumnDefinitions="Auto, *, Auto" Padding="10,5" RowSpacing="2">
+                                    <Border Grid.Column="0" BackgroundColor="{Binding BackColor}" StrokeThickness="1" StrokeShape="RoundRectangle 20" HeightRequest="40" WidthRequest="40" Padding="5" Margin="0,0,10,0">
+                                        <Image Source="{Binding Image}" Aspect="AspectFit" HeightRequest="30" WidthRequest="30"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Category}" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Description}" FontSize="Micro" TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"/>
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="{Binding Budget}" FontAttributes="Bold" VerticalOptions="Center" TextColor="{Binding SoldeColor}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource DashboardCard}">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0" Text="Objectifs d'Épargne" Style="{StaticResource DashboardCardTitle}"/>
+                        <Button Grid.Column="1" Text="Gérer" FontSize="Small" HeightRequest="35" Command="{Binding GoToSavingsCommand}"/>
+                    </Grid>
+          
+                    <CollectionView ItemsSource="{Binding SavingsGoalsSummary}" HeightRequest="180">
+                        <!-- Adjust height -->
+                        <CollectionView.EmptyView>
+                            <Label Text="Aucun objectif d'épargne défini." HorizontalOptions="Center" VerticalOptions="Center" Margin="20"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:EpargneViewModel">
+                                <!-- Ensure correct namespace -->
+                                <VerticalStackLayout Padding="5,10">
+                                    <Label Text="{Binding Titre}" FontAttributes="Bold"/>
+                                    <ProgressBar Progress="{Binding Progression}" ProgressColor="{StaticResource PrimaryColor}" Margin="0,2"/>
+                                    <Label FontSize="Small">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding CurrentAmount}"/>
+                                                <Span Text=" / "/>
+                                                <Span Text="{Binding Montant}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <microcharts:ChartView Chart="{Binding ChartDataGoals}" HeightRequest="150" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource DashboardCard}">
+                <VerticalStackLayout>
+                    <Label Text="Actions Rapides" Style="{StaticResource DashboardCardTitle}"/>
+                    <FlexLayout JustifyContent="SpaceEvenly" Wrap="Wrap">
+                        <Button Text="+ Transaction" Command="{Binding GoToAddNewTransactionCommand}" Margin="5"/>
+                        <Button Text="+ Épargne" Command="{Binding ClickAddNewEpargneCommand}" Margin="5"/>
+                        <!-- Assuming command exists in EpargneViewModel or here -->
+                        <Button Text="Statistiques" Margin="5" Command="{Binding GoToAllStatsCommand}"/>
+                        <!-- Add Command -->
+
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            
+            <Button Text="Back" Command="{Binding BackButtonCommand}" BackgroundColor="Red" FontAttributes="Bold" FontSize="Medium" WidthRequest="100"/>
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

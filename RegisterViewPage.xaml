@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FinanceApp.Views"
+             xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"
+             x:Class="FinanceApp.Views.RegisterViewPage"
+             Shell.NavBarIsVisible="False"
+             Title="Inscription">
+
+    <ContentPage.BindingContext>
+        <viewModels:RegisterViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <ImageButton Source="applogo.png"
+                   Aspect="AspectFit"
+                   HeightRequest="100"
+                   WidthRequest="70"
+                   CornerRadius="60"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Créez votre compte"
+                   TextColor="{StaticResource Primary}"
+                   FontSize="25"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            
+            <Label Text="Adresse Email"
+                   TextColor="{StaticResource OffBlack}"
+                   FontSize="16" />
+            <Border Stroke="{StaticResource Gray300}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8">
+                <Entry Placeholder="votre@email.com"
+                       Keyboard="Email"
+                       Text="{Binding Email}"
+                       FontSize="16" />
+            </Border>
+
+            <Label Text="Mot de passe"
+                   TextColor="{StaticResource OffBlack}"
+                   FontSize="16" />
+            <Border Stroke="{StaticResource Gray300}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8">
+                <Entry Placeholder="Votre mot de passe"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       FontSize="16" />
+            </Border>
+            
+            <Label Text="Confirmer le mot de passe"
+                   TextColor="{StaticResource OffBlack}"
+                   FontSize="16" />
+            <Border Stroke="{StaticResource Gray300}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8">
+                <Entry Placeholder="Confirmez votre mot de passe"
+                       IsPassword="True"
+                       Text="{Binding PasswordConfirm}"
+                       FontSize="16" />
+            </Border>
+
+            <Label Text="Nom complet"
+                   TextColor="{StaticResource OffBlack}"
+                   FontSize="16" />
+            <Border Stroke="{StaticResource Gray300}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8">
+                <Entry Placeholder="Votre nom complet"
+                       Keyboard="Text"
+                       Text="{Binding Name}"
+                       FontSize="16" />
+            </Border>
+            
+            <Label Text="Numéro de téléphone"
+                   TextColor="{StaticResource OffBlack}"
+                   FontSize="16" />
+            <Border Stroke="{StaticResource Gray300}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8">
+                <Entry Placeholder="Votre numéro de téléphone"
+                       Keyboard="Telephone"
+                       Text="{Binding PhoneNumber}"
+                       FontSize="16" />
+            </Border>
+
+
+            <HorizontalStackLayout Spacing="15" Margin="0,5,0,10">
+                <Button Text="Créer un compte"
+                        Command="{Binding ValidateEmailAndPasswordCommand}"
+                        
+                        FontSize="16" />
+                <Button Text="Retour"
+                        Command="{Binding ButtonBackCommand}"
+                        BackgroundColor="Black"
+                       
+                        FontSize="16" />
+            </HorizontalStackLayout>
+
+            <!-- Verification code section -->
+            <Border StrokeThickness="1"
+                    Stroke="{StaticResource Gray300}"
+                    BackgroundColor="{StaticResource Gray100}"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="15"
+                    IsVisible="{Binding IsVerificationCodeEntryVisible}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Code de vérification"
+                           TextColor="#333333"
+                           FontSize="16" />
+                    <Entry Text="{Binding VerificationCode}"
+                           Placeholder="Entrez le code ici"
+                           Keyboard="Numeric"
+                           FontSize="16" />
+                    <Button Text="Vérifier le code"
+                            BackgroundColor="DarkCyan"
+                            TextColor="White"
+                            Command="{Binding VerifyCodeCommand}"
+                            FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid BackgroundColor="{StaticResource Gray200}"
+                  Opacity="0.8"
+                  IsVisible="{Binding IsBusy}">
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   Color="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   WidthRequest="50"
+                                   HeightRequest="50" />
+                <Label Text="Création du compte..."
+                       TextColor="{StaticResource Primary}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0,30,0,0" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

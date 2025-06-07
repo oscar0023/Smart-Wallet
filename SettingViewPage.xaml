@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:FinanceApp.ViewModels"
+             x:Class="FinanceApp.Views.SettingViewPage"
+             Title="Paramètres">
+
+    <ContentPage.BindingContext>
+        <viewModels:SettingViewModele />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Frame CornerRadius="15" HasShadow="True" BorderColor="#cccccc" Padding="20" BackgroundColor="{DynamicResource personalcolor1}">
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Border StrokeShape="RoundRectangle 360">
+                        <Image 
+                            Source="{Binding ImageButtonSource}" 
+                            Aspect="Center"
+                            BackgroundColor="White" 
+                        />
+                    </Border>
+                    <Label Text="{Binding UserName}" FontSize="24" FontAttributes="Bold" TextColor="#333333" HorizontalOptions="Center"/>
+                    <Label Text="{Binding UserMail}" FontSize="16" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <VerticalStackLayout Spacing="15">
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15">
+                        <Image Source="home.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" />
+                        <Label Text="Mode sombre" FontSize="18" TextColor="#333333" VerticalOptions="Center"/>
+                        <Switch Toggled="ThemeHandler" ThumbColor="#333333" OnColor="Green" IsToggled="{Binding IsDarkModeEnable}" Margin="130,0,0,0" HorizontalOptions="End" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15">
+                        <Image Source="dark_mode.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Text="Notifications" FontSize="18" TextColor="#333333" VerticalOptions="Center"/>
+                        <Switch IsToggled="True" Toggled="NotificationsControl" Margin="130,0,0,0" HorizontalOptions="End" ThumbColor="#333333"  OnColor="Green" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToProfilPage" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="profil_icon.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Text="Compte" FontSize="18" TextColor="#333333" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15">
+                        <Image Source="language.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Text="Langues" FontSize="18" TextColor="#333333" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogOutButtonClik" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="power.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Text="Déconnexion"  FontSize="18" TextColor="#333333" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Frame CornerRadius="10" HasShadow="True" Padding="10" BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="15" Background="Transparent">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="LoadAppInfos"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="info_icon.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" Background="Transparent"/>
+                        <Label Text="À propos" FontSize="18" TextColor="#333333" VerticalOptions="Center" Background="Transparent"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
